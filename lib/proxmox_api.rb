@@ -32,7 +32,7 @@ class ProxmoxAPI
     end
 
     def method_missing(method, *args)
-      return @api.__send__(:submit, method, to_s, *args) if REST_METHODS.include?(method)
+      return @api.__send__(:submit, method, to_s, *args) if REST_METHODS.any? { |rm| /^#{rm}!?$/.match? method }
 
       @path << method.to_s
       self
@@ -123,8 +123,13 @@ class ProxmoxAPI
   end
 
   def submit(method, url, data = {})
+    if /!$/.match? method
+      method = method.to_s.tr('!', '').to_sym
+      skip_raise = true
+    end
+
     @connection[url].__send__(method, *prepare_options(method, data)) do |response|
-      raise_on_failure(response)
+      raise_on_failure(response) unless skip_raise
 
       JSON.parse(response.body, symbolize_names: true)[:data]
     end

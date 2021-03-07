@@ -5,3 +5,5 @@ AllCops:
 Lint/MissingSuper:
   Enabled: false
 
+Style/RegexpLiteral:
+  EnforcedStyle: mixed
