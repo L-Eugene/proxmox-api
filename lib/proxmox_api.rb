@@ -93,7 +93,7 @@ class ProxmoxAPI
   private
 
   def raise_on_failure(response, message = 'Proxmox API request failed')
-    return unless response.code.to_i >= 300
+    return unless response.code.to_i >= 400
 
     raise ApiException.new(response, message)
   end
