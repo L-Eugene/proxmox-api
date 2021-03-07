@@ -4,7 +4,7 @@ require 'rspec'
 
 describe 'ApiPath' do
   before(:each) do
-    @api_object = instance_double('ProxmoxAPI')
+    @api_object = double('ProxmoxAPI')
     allow(@api_object).to receive(:is_a?).with(ProxmoxAPI) { true }
   end
 
@@ -26,5 +26,12 @@ describe 'ApiPath' do
 
   it 'collects api path combining [] and methods' do
     expect(ProxmoxAPI::ApiPath.new(@api_object).nodes['pve1'].lxc.to_s).to eq 'nodes/pve1/lxc'
+  end
+
+  %i[get post delete put].each do |method|
+    it "should send #{method} to ProxmoxAPI" do
+      expect(@api_object).to receive(:submit).with(method, 'nodes/pve')
+      ProxmoxAPI::ApiPath.new(@api_object).nodes.pve.__send__(method)
+    end
   end
 end

@@ -43,6 +43,20 @@ class ProxmoxAPI
     end
   end
 
+  # This exception is raised when Proxmox API returns error code
+  #
+  # @!attribute [r] response
+  #   @return [RestClient::Response] answer from Proxmox server
+  class ApiException < RuntimeError
+    attr_reader :response
+
+    def initialize(response, description)
+      @response = response
+
+      super description
+    end
+  end
+
   # Constructor method for ProxmoxAPI
   #
   # @param [String] cluster hostname/ip of cluster to control
@@ -79,9 +93,16 @@ class ProxmoxAPI
 
   private
 
+  def raise_on_failure(response, message = 'Proxmox API request failed')
+    return unless response.code.to_i >= 300
+
+    raise ApiException.new(response, message)
+  end
+
   def create_auth_ticket(options)
     @connection['access/ticket'].post options do |response, _request, _result, &_block|
-      # TODO: raise unless response.code == 200
+      raise_on_failure(response, 'Proxmox authentication failure')
+
       data = JSON.parse(response.body, symbolize_names: true)[:data]
       {
         cookies: { PVEAuthCookie: data[:ticket] },
@@ -103,7 +124,8 @@ class ProxmoxAPI
 
   def submit(method, url, data = {})
     @connection[url].__send__(method, *prepare_options(method, data)) do |response|
-      # TODO: raise unless response.code == 200
+      raise_on_failure(response)
+
       JSON.parse(response.body, symbolize_names: true)[:data]
     end
   end
