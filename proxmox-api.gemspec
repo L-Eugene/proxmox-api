@@ -2,9 +2,9 @@
 
 Gem::Specification.new do |spec|
   spec.name        = 'proxmox-api'
-  spec.version     = '0.1.0'
-  spec.summary     = 'A library to manage Proxmox VE cluster'
-  spec.description = 'A library to manage Proxmox VE cluster using APIv2'
+  spec.version     = '1.0.0'
+  spec.summary     = 'Proxmox VE REST API wrapper'
+  spec.description = 'Proxmox VE REST API wrapper'
   spec.authors     = ['Eugene Lapeko']
   spec.email       = 'eugene@lapeko.info'
   spec.files       = [
