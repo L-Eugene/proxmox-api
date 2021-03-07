@@ -73,7 +73,7 @@ class ProxmoxAPI
   def initialize(cluster, options)
     @connection = RestClient::Resource.new(
       "https://#{cluster}:#{options[:port] || 8006}/api2/json/",
-      options.select { |k, _v| RestClient::Request::SSLOptionList.unshift("verify_ssl").include? k.to_s }
+      options.select { |k, _v| RestClient::Request::SSLOptionList.unshift('verify_ssl').include? k.to_s }
     )
     @auth_ticket = create_auth_ticket(options.select { |k, _v| AUTH_PARAMS.include? k })
   end
