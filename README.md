@@ -1,5 +1,6 @@
 # proxmox-api
 [![Build Status](https://travis-ci.com/L-Eugene/proxmox-api.svg?branch=master)](https://travis-ci.com/L-Eugene/proxmox-api)
+[![Gem Version](https://badge.fury.io/rb/proxmox-api.svg)](https://badge.fury.io/rb/proxmox-api)
 
 ## What is it?
 ProxmoxAPI is Ruby wrapper for [Proxmox REST API](https://pve.proxmox.com/pve-docs/api-viewer/index.html). 
