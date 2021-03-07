@@ -10,7 +10,6 @@ require 'json'
 class ProxmoxAPI
   AUTH_PARAMS  = %i[username realm password otp].freeze
   REST_METHODS = %i[get post put delete].freeze
-  SSL_OPTIONS  = %i[ssl_client_cert ssl_client_key ssl_ca_file verify_ssl].freeze
 
   # This class is used to collect api path before request
   class ApiPath
@@ -74,7 +73,7 @@ class ProxmoxAPI
   def initialize(cluster, options)
     @connection = RestClient::Resource.new(
       "https://#{cluster}:#{options[:port] || 8006}/api2/json/",
-      options.select { |k, _v| SSL_OPTIONS.include? k }
+      options.select { |k, _v| RestClient::Request::SSLOptionList.include? k }
     )
     @auth_ticket = create_auth_ticket(options.select { |k, _v| AUTH_PARAMS.include? k })
   end
