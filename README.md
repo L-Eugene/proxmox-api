@@ -23,20 +23,30 @@ gem install proxmox
 
 Creating connection is as simple as giving all needed info to ProxmoxAPI constructor:
 
-```ruby
-require 'proxmox_api'
-
-client = ProxmoxAPI.new(
-  'proxmox-host.example.org',
-  username: 'root', password: 'password', realm: 'pam', verify_ssl: false
-)
-``` 
-
 First parameter is node we are going to connect to.
 Second parameter is options hash. Possible options are: 
 1. Ticket creation options **:username**, **:password**, **:realm**, **:otp**
    (see [/access/ticket](https://pve.proxmox.com/pve-docs/api-viewer/index.html#/access/ticket) request description)
+   ```ruby
+   require 'proxmox_api'
+   
+   client = ProxmoxAPI.new(
+     'proxmox-host.example.org',
+     username: 'root', password: 'password', realm: 'pam', verify_ssl: false
+   )
+   ``` 
     
+1. Token options **:token**, **:secret**
+   (see [API documentation](https://pve.proxmox.com/wiki/Proxmox_VE_API#API_Tokens) for details)
+   ```ruby
+   require 'proxmox_api'
+   
+   client = ProxmoxAPI.new(
+     'proxmox-host.example.org',
+     token: 'root@pam!tokenid', secret: 'cdbb8fce-c068-4a9b-ade1-a00043db818a', verify_ssl: false
+   )
+   ``` 
+
 1. SSL options, supported by [rest-client](https://github.com/rest-client/rest-client).
    See it's documentation for full list.
 
