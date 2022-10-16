@@ -8,7 +8,7 @@ require 'json'
 #
 # @author Eugene Lapeko
 class ProxmoxAPI
-  AUTH_PARAMS  = %i[username realm password otp].freeze
+  AUTH_PARAMS = %i[username realm password otp].freeze
   RESOURCE_OPTIONS = %i[headers].freeze
   REST_METHODS = %i[get post put delete].freeze
 
@@ -74,17 +74,15 @@ class ProxmoxAPI
   # You can also pass here all ssl options supported by rest-client gem
   # @see https://github.com/rest-client/rest-client
   def initialize(cluster, options)
-    @auth_ticket = {}
-
-    options[:headers] = {
-      Authorization: "PVEAPIToken=#{options[:token]}=#{options[:secret]}"
-    } if options.key?(:token) and options.key?(:secret)
+    if options.key?(:token) && options.key?(:secret)
+      options[:headers] = { Authorization: "PVEAPIToken=#{options[:token]}=#{options[:secret]}" }
+    end
 
     @connection = RestClient::Resource.new(
       "https://#{cluster}:#{options[:port] || 8006}/api2/json/",
-      options.select { |k, _v| RestClient::Request::SSLOptionList.unshift('verify_ssl').include? k.to_s or RESOURCE_OPTIONS.include? k }
+      options.select { |k, _v| connection_options.include?(k.to_s) }
     )
-    @auth_ticket = create_auth_ticket(options.select { |k, _v| AUTH_PARAMS.include? k }) if not options.key?(:token)
+    @auth_ticket = options.key?(:token) ? {} : create_auth_ticket(options.select { |k, _v| AUTH_PARAMS.include? k })
   end
 
   def [](index)
@@ -97,6 +95,11 @@ class ProxmoxAPI
 
   def respond_to_missing?(*)
     true
+  end
+
+  # The list of options to be passed to RestClient object
+  def self.connection_options
+    RestClient::Request::SSLOptionList.unshift('verify_ssl') + RESOURCE_OPTIONS
   end
 
   private
