@@ -1,10 +1,5 @@
 language: ruby
 rvm:
 - 2.5
-deploy:
-  provider: rubygems
-  api_key:
-    secure: EvpoRixjAIH13gtN1kRhbG7oMogiY3gWMt2gyUJgAJ5Yq5myO8hYOg6WPVjGJxEulV/KeD4j42T3sGLvNCZ/xrSXxsE3Oy7OhuUf9DSIhoHoAQIsF48U99h91FY/u/oz7+w9ZtE/7jjlRNCeXoJZZUwvo/H015HJJSZ3jzyQW8Gnh+wQF74Q2Sgh8pzaKW/KtYyHOl96q7+GkwRsb4Z48mH6Z5vf4pGFPt50hOSnUaCitpsJvoLeDScse6VYNHPpIIAQPml8OkygV74/cChk19uTqYXP3mq9wno3OgikEMuqCUodpZtrni8YDMvpxoMecfIRiKVO/r9fSTCCvJoE+38womwOrRlfwWpAwHEZNzOceRixuloaI66q+1+lemy4YT6ImqgEIISTMQEVUPMsrXrO1zRv6spdp2W1FjY4+kE8BALTtQozGdO/JcSivDZoZSPnPvsF3jVM2+uTHOUk2WcD2KiqaTEKhVoF5iVr3TLrQytDeI6Jr67aJ7Np7NherK+nsz5ZBbJtZ++oMe/48PXA3HPEIwwEuBLVrcAZcGQ6AYRrQLo67SsQ5B9baWxMy6ri/VWR5/dl4yGHFDudL1Ew1fwEjA6x7hdZij6KHhsUDIpFY569BIrbAqUjfnD8AFJtLF73fwnAfKFJY5CG6WL0d7FyhtRbo77MqohwMyI=
-  on:
-    tags: true
-    rvm: 2.5
+- 2.7
+- 3.1
