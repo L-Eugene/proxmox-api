@@ -12,10 +12,9 @@ Gem::Specification.new do |spec|
     'LICENSE',
     'lib/proxmox_api.rb'
   ]
-  spec.test_files = Dir['spec/**/*rb']
   spec.require_paths = ['lib']
 
-  spec.required_ruby_version = '>= 2.4'
+  spec.required_ruby_version = '>= 2.5'
 
   spec.add_dependency 'json', '~> 2'
   spec.add_dependency 'rest-client', '~> 2.1'
@@ -26,4 +25,6 @@ Gem::Specification.new do |spec|
 
   spec.homepage = 'https://github.com/L-Eugene/proxmox-api'
   spec.license = 'MIT'
+
+  spec.metadata['rubygems_mfa_required'] = 'true'
 end
