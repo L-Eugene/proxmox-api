@@ -1,5 +1,5 @@
 # proxmox-api
-[![Build Status](https://travis-ci.com/L-Eugene/proxmox-api.svg?branch=master)](https://travis-ci.com/L-Eugene/proxmox-api)
+[![Build Status](https://travis-ci.com/L-Eugene/proxmox-api.svg?branch=master)](https://app.travis-ci.com/github/L-Eugene/proxmox-api)
 [![Gem Version](https://badge.fury.io/rb/proxmox-api.svg)](https://badge.fury.io/rb/proxmox-api)
 
 ## What is it?
